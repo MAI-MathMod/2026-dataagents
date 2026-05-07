@@ -6,6 +6,21 @@
 
 Создать агента, который будет готовить наборы данных для экономических исследований, на основании запроса на естественном языке. Например: "*Надо оценить товарооборот между Россией и Казахстаном*".
 
+## Данные
+
+Для реализации прототипа рекомендуем использовать специально подготовленный экспорт данных [отсюда с Yandex Disk, ~3.5Gb](https://disk.yandex.ru/d/M4FR84WYcuF4TA):
+- [Данные Росстата](docs/FedStat.md)
+- [Данные Всемирного банка](docs/WB.md)
+
+> При необходимости в случае медленного соединения с интернет данные можно скопировать у Дмитрия Сошникова.
+
+Для более полной реализации можно использовать API хранилища данных НЦСЕД, организованное на базе платформы CKAN:
+* [Описание API CKAN](https://docs.ckan.org/en/2.9/api/)
+* API Endpoint: `https://repository.nsedc.ru/api/3/action/package_search`
+
+> Использование API будет плюсом решения, но следует отметить, что в нём хранится больший объем данных, из-за чего может страдать качество ответов на запросы.
+
+
 ## Оценка 
 
 Работа будет оцениваться по нескольким критериям (подробнее - в [полном описании задачи](/docs/problem_description.md)):
@@ -19,25 +34,19 @@
 * Качество инженерии решение (по Github-репозиторию)
 * Продуктовое качество (UI/UX, презентация, качество артефактов)
 
-## Данные
-
-Для реализации прототипа рекомендуем использовать специально подготовленный экспорт данных [отсюда с Yandex Disk, 3.5Gb](https://disk.yandex.ru/d/M4FR84WYcuF4TA):
-- [Данные Росстата](docs/FedStat.md)
-- [Данные Всемирного банка](docs/WB.md)
-
-> При необходимости в случае медленного соединение с интернет данные можно скопировать у Дмитрия Сошникова.
-
-Для более полной реализации можно использовать API хранилища данных НЦСЕД, огранизованное на базе платформы CKAN:
-* [Описание API CKAN](https://docs.ckan.org/en/2.9/api/)
-* API Endpoint: `https://repository.nsedc.ru/api/3/action/package_search`
-
-> Использование API будет плюсом решения, но следует отметить, что в нём хранится больший объем данных, из-за чего может страдать качество ответов на запросы.
 
 ## Рекомендованные инструменты
 
 Для реализации используйте Yandex AI Studio, доступ к которой будет предоставлен. Что можно использовать:
-* Модели Yandex и ряд открытых моделей (Qwen3.6, DeepSeek) через Responses API с поддержкой Tool Calling, Web Search, Code Interpreter, файлового поиска (RAG). Рекомендуем [OpenAI SDK](https://github.com/openai/openai-python)
+* Модели Yandex и ряд открытых моделей (Qwen3.6, DeepSeek) через [OpenAI Responses API](https://aistudio.yandex.ru/docs/ru/ai-studio/operations/generation/create-prompt.html) с поддержкой Tool Calling, Web Search, Code Interpreter, файлового поиска (RAG). Рекомендуем [OpenAI SDK](https://github.com/openai/openai-python)
 * [OpenAI Agents](https://github.com/openai/openai-agents-python) для работы с агентами
 * Любые другие библиотеки, совместимые с OpenAI. Необходимо лишь правильно задать:
-   - Базовый URL
-   -  
+   - Базовый URL: `https://ai.api.cloud.yandex.net/v1`
+   - Название модели: по образцу `gpt://{folder_id}/yandexgpt/rc`, список актуальных моделей [тут](https://aistudio.yandex.ru/docs/ru/ai-studio/concepts/generation/models.html)
+   - API-ключ, легко получается на [странице AI Studio](https://aistudio.yandex.ru)
+
+Примеры использования инструментов:
+* В этом репозитории
+* Курс [AI Studio для преподавателей](https://github.com/yandex-ai-studio/ai-studio-course)
+* Пример [фитнес-ассистента](https://github.com/yandex-ai-studio/fitness-assistant)
+
