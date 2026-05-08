@@ -1,5 +1,10 @@
 # Кейс НЦСЭД+Yandex Cloud: ИИ-агент для экономистов
 
+## Средства коммуникации
+
+* [Чат в MAX](https://max.ru/join/LGCwhuTTgygnjuEaODX9m1AFukbE5-JQ9RL2UR7gOdM)
+* [Чат в ТГ](https://t.me/+3osMHNpxOn02MTgy)
+
 ## Получение доступа в Yandex Cloud
 
 Для получения доступа к Yandex Cloud заполните [эту форму](https://forms.yandex.ru/u/69fd825802848f4047b8f2cc).
