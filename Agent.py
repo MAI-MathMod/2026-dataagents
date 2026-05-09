@@ -6,9 +6,7 @@ Universal Agent Class for Yandex Cloud Responses API
 - JSON-словари: web_search, file_search, mcp, function
 
 Использование:
-    from Agent import Agent, create_client
-    
-    client = create_client()
+    from Agent import Agent
     agent = Agent(client, instruction="...", tools=[...])
     result = agent("Привет!")
 """
@@ -19,30 +17,6 @@ from typing import List, Union, Dict, Any
 from pydantic import BaseModel
 from openai import OpenAI
 from dotenv import load_dotenv
-
-
-def create_client():
-    """
-    Создаёт и возвращает OpenAI-клиент для Yandex Cloud.
-    Загружает credentials из .env файла.
-    """
-    load_dotenv(override=True)
-    
-    folder_id = os.environ["folder_id"]
-    api_key = os.environ["api_key"]
-    
-    return OpenAI(
-        base_url="https://ai.api.cloud.yandex.net/v1",
-        api_key=api_key,
-        project=folder_id
-    )
-
-
-def get_model_uri(folder_id: str = None) -> str:
-    """Возвращает URI модели YandexGPT."""
-    if folder_id is None:
-        folder_id = os.environ.get("folder_id")
-    return f"gpt://{folder_id}/yandexgpt/rc"
 
 
 class Agent:
@@ -88,13 +62,13 @@ class Agent:
             client: OpenAI-клиент (создать через create_client())
             instruction: Системный промпт для агента
             tools: Список инструментов (Pydantic-классы или JSON-словари)
-            model: URI модели (по умолчанию yandexgpt/rc)
+            model: URI модели
             tool_choice: auto | required | none
             verbose: Выводить ли отладочную информацию
         """
         self.client = client
         self.instruction = instruction
-        self.model = model or get_model_uri()
+        self.model = model
         self.tool_choice = tool_choice
         self.verbose = verbose
         
